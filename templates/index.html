@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <h1 class="logo">Plagiarism<span>Checker</span></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Smart Plagiarism Detection for Your Documents</h2>
+            <p>Upload two or more text files and instantly check their similarity using AI-powered algorithms.</p>
+
+            <form action="/check" method="post" enctype="multipart/form-data" class="upload-form">
+                <input type="file" name="files" multiple required>
+                <button type="submit">Check Plagiarism</button>
+            </form>
+
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+
+        <div class="hero-image">
+            <img src="https://academic-englishuk.com/wp-content/uploads/2022/11/Plagiarism-checker-3-480x154.png" alt="Coding Illustration">
+        </div>
+    </section>
+
+    {% if results %}
+    <section class="results">
+        <h2>Plagiarism Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>File 1</th>
+                    <th>File 2</th>
+                    <th>Similarity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in results %}
+                <tr>
+                    <td>{{ r.file1 }}</td>
+                    <td>{{ r.file2 }}</td>
+                    <td>{{ r.score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    <footer>
+        <p>© 2025 Plagiarism Checker | Designed with ❤️ by Arpit</p>
+    </footer>
+</body>
+</html>
